@@ -1,0 +1,43 @@
+version: '3.3'
+services:
+  db:
+    container_name: playground-db
+    image: mysql:5
+    volumes:
+      - "./.db:/var/lib/mysql"
+    restart: "no"
+    environment:
+      MYSQL_ROOT_PASSWORD: dev
+      MYSQL_DATABASE: dev
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev
+  wp:
+    image: wordpress:latest
+    depends_on:
+      - db
+    container_name: playground-wp
+    volumes:
+      - "./.wp:/var/www/html"
+    links:
+      - db
+    ports:
+      - "80:80"
+    restart: "no"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_DB: dev
+      WORDPRESS_DB_USER: dev
+      WORDPRESS_DB_PASSWORD: dev
+      WORDPRESS_DB_NAME: dev
+  app:
+    image: node:12
+    container_name: playground-app
+    links:
+      - wp
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "3000:3000"
+    restart: "no"
+    working_dir: "/home/node/app"
+    command: "npm run dev"
