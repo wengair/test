@@ -5,7 +5,7 @@ export default function Show({post}) {
   return (
     <div>
         <div className="text-container" dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
-      <Link href="/posts/list"><a>Return</a></Link>
+      <Link href="/"><a>Return</a></Link>
     </div>
   )
 }
@@ -23,7 +23,7 @@ export default function Show({post}) {
 
 export async function getStaticPaths() {
   // Call an external API endpoint to get posts
-  const res = await fetch('http://wp:80/wp-json/wp/v2/posts')
+  const res = await fetch('http://localhost:80/wp-json/wp/v2/posts')
   console.log(res)
   const posts = await res.json()
   console.log(posts)
@@ -39,7 +39,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // params contains the post `id`.
   // If the route is like /posts/1, then params.id is 1
-  const res = await fetch(`http://wp:80/wp-json/wp/v2/posts/${params.id}`)
+  const res = await fetch(`http://localhost/wp-json/wp/v2/posts/${params.id}`)
   const post = await res.json()
 
   // Pass post data to the page via props

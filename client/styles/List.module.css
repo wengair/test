@@ -1,0 +1,27 @@
+.postContainer {
+    background-color: #d3d4d5;
+    border-radius: 5px;
+    padding:20px;
+    margin:5px;
+}
+
+.postContainer:hover{
+    background-color: white;
+}
+
+.contentStyle {
+    overflow: hidden;
+    height:70px;
+}
+
+.contentStyle >p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.contentStyle >ol >li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

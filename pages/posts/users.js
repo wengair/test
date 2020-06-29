@@ -1,14 +1,13 @@
-import React, { Component, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'; //tree shake
 import Link from 'next/link'
 
 export default function List() {
   const POSTS_SERVICE_URL = 'http://localhost:80/wp-json/wp/v2/users/3';
 
   const useFetch = (url, options) => {
-    const [response, setResponse] = React.useState(null);
-    const [error, setError] = React.useState(null);
-    React.useEffect(() => {
-      const fetchData = async () => {
+    const [response, setResponse] = useState(null);
+    const [error, setError] = useState(null);
+    useEffect(async () => {
         try {
           const res = await fetch(url, options);
           const json = await res.json();
@@ -16,8 +15,6 @@ export default function List() {
         } catch (error) {
           setError(error);
         }
-      };
-      fetchData();
   }, []);
   return { response, error };
   };

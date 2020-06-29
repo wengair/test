@@ -55,6 +55,9 @@ define( 'SECURE_AUTH_SALT', 'f4c8fd18a1ab237afb6fffa139464b4230567454');
 define( 'LOGGED_IN_SALT',   'b6327ff655ab2b617469e0d8980f3e251d6e3877');
 define( 'NONCE_SALT',       '9672c8a12079bfc4279b719398859f28878b0014');
 
+define('JWT_AUTH_SECRET_KEY', 'yFvFaXx93{E-h(-Z$Q4rNl2m|SS$53|o V(W+Kw(2+%.I#$AITJk63][}]_-4Qzc');
+define('JWT_AUTH_CORS_ENABLE', true);
+
 /**#@-*/
 
 /**
