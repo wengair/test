@@ -7593,3 +7593,32 @@ function is_php_version_compatible( $required ) {
 function wp_fuzzy_number_match( $expected, $actual, $precision = 1 ) {
 	return abs( (float) $expected - (float) $actual ) <= $precision;
 }
+
+
+// function my_enqueue_scripts() {
+//     wp_enqueue_script( 'app', get_template_directory_uri() . '/assets/dist/bundle.js', array(), false, true );
+//     wp_localize_script( 'app', 'WP_API_Settings', array(
+//         'endpoint' => esc_url_raw( rest_url() ),
+//         'nonce' => wp_create_nonce( 'wp_rest' )
+//     ) );
+// }
+add_action( 'wp_enqueue_scripts', 'my_enqueue_scripts' );
+
+add_action('rest_api_init', function () {
+    register_rest_route( 'custom', 'login', array(
+        'methods' => 'POST',
+        'callback' => function(WP_REST_Request $request) {
+            $nonce = wp_create_nonce("wp_rest");
+            $user = wp_signon(array('user_login' => $_POST['username'],
+                'user_password' => $_POST['password'], "rememberme" => true), false);
+            if (is_wp_error($user)) {
+                return $user;
+            }
+
+            //do_action( 'wp_login', "capad" );
+            //$user['isloggedin'] = is_user_logged_in();
+            return array('user' => $user,
+                'nonce' => $nonce);
+        }
+    ));
+});
