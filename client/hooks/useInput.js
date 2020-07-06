@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function useInput(initialValue) {
+function useInput(initialValue=null) {
   const [value, setValue] = useState(initialValue)
 
   const bind = {
@@ -10,9 +10,10 @@ function useInput(initialValue) {
     }
   }
 
-  const reset = () => {
+  const reset = (initialValue) => {
     setValue(initialValue)
   }
+
   return [value, bind, reset]
 }
 

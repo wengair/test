@@ -1,0 +1,39 @@
+.formConatainer {
+  display: flex;
+  justify-content:  center ;
+  align-items:  center ;
+  flex-direction: column;
+  width: 100vw ;
+  height: 80vh;
+}
+
+.form {
+  width:400px;
+  background-color:#00C1F0;
+  padding: 30px;
+  border-radius:5px;
+}
+.formOption {
+  margin:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formLabel {
+  width:100px;
+}
+
+.formTextarea {
+  height: 20px;
+  flex-grow:1;
+}
+
+.formSubmit{
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  font-size: 18px;
+  border-radius: 15px;
+}

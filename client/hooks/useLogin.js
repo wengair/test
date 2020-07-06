@@ -1,5 +1,5 @@
 import {useState, useContext, useEffect} from 'react'
-import {UserContext} from 'pages/index'
+import {UserContext} from 'pages/_app'
 
 function useLogin(userInfo = 'Guest', userToken = '') {
   const [login, setLogin] = useState(false)
@@ -30,11 +30,15 @@ function useLogin(userInfo = 'Guest', userToken = '') {
 
   const userLogin = (userInfo, userToken)  => {
     console.log(`in userLogin, usertoken = ${userToken}`)
-    user.login = true
-    user.name = userInfo
-    user.token = userToken
-    // console.log(user.login)
-    // console.log(user.name)
+    user = {
+      login: true, name: userInfo, token: userToken
+    }
+    // user.login = true
+    // user.name = userInfo
+    // user.token = userToken
+    localStorage.setItem('userData', JSON.stringify({user}))
+    console.log(user.login)
+    console.log(user.name)
     console.log(user.token)
   }
 

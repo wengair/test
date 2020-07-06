@@ -1,5 +1,5 @@
 .postContainer {
-    background-color: #d3d4d5;
+    background-color: var(--main-grey-color);
     border-radius: 5px;
     padding:20px;
     margin:5px;

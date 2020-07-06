@@ -40,60 +40,74 @@ function index() {
     // ------------------------------------------------
     
     // ----------fetch version get token---------------
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ username: email, password:pass })
-    // };
-    // fetch(toeknUrl, requestOptions)
-    // .then(resf => resf.json()) // necessary!
-    // .then(data => {
-    //   if(data.token){
-    //     console.log(data)
-    //   } else {
-    //     console.log("login fail")
-    //   }
-    // })
-    // .catch(errf => {
-    //   console.log('errf=')
-    //   console.log(errf)
-    // })
-    // ------------------------------------------------
-
-    // ----------fetch version get cookie---------------
-    let formData = new FormData()
-    formData.append('username', email)
-    formData.append('password', pass)
-
     const requestOptions = {
       method: 'POST',
-      // headers: { 'Content-Type': 'multipart/form-data' },
-      // body: { username: email, password:pass }
-      body: formData
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: email, password:pass })
     };
-    fetch("http://localhost/wp-json/custom/login", requestOptions)
+    fetch(toeknUrl, requestOptions)
     .then(resf => resf.json()) // necessary!
     .then(data => {
-        if(data.user){
-          console.log(data)
-          console.log(data.nonce)
-          userLogin(email, data.nonce)
-          console.log(`userToken=${userToken}`)
-          console.log(isLogin)
-          // var AuthCookie = localStorage.getItem("auth")
-          // console.log(AuthCookie)
-          Router.push('/')
-        } else {
-          console.log("login fail")
-        }
-      })
+      if(data.token){
+        console.log(data)
+        userLogin(email, data.token)
+        Router.push('/')
+        // const requestOptions1 = {
+        //   method: 'GET',
+        //   headers: { 'Authorization': 'Bearer ' + data.token },
+        //   // body: { username: email, password:pass }
+        //     // body: formData
+        //   };
+        //   fetch('http://localhost/wp-json/wp/v2/users/me',requestOptions1) 
+        //   // test if token can be used on other api
+        //     .then(resf1 => resf1.json()) // necessary!
+        //     .then(data1 => console.log(data1))
+        //     .catch(err  => console.log(err))
+      } else {
+        console.log("login fail")
+      }
+    })
     .catch(errf => {
       console.log('errf=')
       console.log(errf)
     })
-    console.log(`userToken=${userToken}`)
-    console.log(userToken)
-    console.log(isLogin)
+    // ------------------------------------------------
+
+    // ----------fetch version get cookie---------------
+    // let formData = new FormData()
+    // formData.append('username', email)
+    // formData.append('password', pass)
+
+    // const requestOptions = {
+    //   method: 'POST',
+    //   // headers: { 'Content-Type': 'multipart/form-data' },
+    //   // body: { username: email, password:pass }
+    //   body: formData
+    // };
+    // fetch("http://localhost/wp-json/custom/login", requestOptions)
+    // .then(resf => resf.json()) // necessary!
+    // .then(data => {
+    //     if(data.user){
+    //       console.log(data)
+    //       console.log(data.nonce)
+    //       userLogin(email, data.nonce)
+    //       console.log(`userToken=${userToken}`)
+    //       console.log(isLogin)
+          
+    //       // var AuthCookie = localStorage.getItem("auth")
+    //       // console.log(AuthCookie)
+    //       Router.push('/')
+    //     } else {
+    //       console.log("login fail")
+    //     }
+    //   })
+    // .catch(errf => {
+    //   console.log('errf=')
+    //   console.log(errf)
+    // })
+    // console.log(`userToken=${userToken}`)
+    // console.log(userToken)
+    // console.log(isLogin)
     // ------------------------------------------------
     if (email==='aaa@hotmail.com' && pass==='test'){
       // userLogin(email)
