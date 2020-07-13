@@ -7623,15 +7623,106 @@ add_action('rest_api_init', function () {
     ));
 });
 
-function add_custom_headers() {
+// function add_custom_headers() {
 
-    add_filter( 'rest_pre_serve_request', function( $value ) {
-        header( 'Access-Control-Allow-Headers: Authorization, X-WP-Nonce,Content-Type, X-Requested-With');
-        header( 'Access-Control-Allow-Origin: http://localhost:3000' );
-        header( 'Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE' );
-        header( 'Access-Control-Allow-Credentials: true' );
+//     add_filter( 'rest_pre_serve_request', function( $value ) {
+//         header( 'Access-Control-Allow-Headers: Authorization, X-WP-Nonce,Content-Type, X-Requested-With');
+//         header( 'Access-Control-Allow-Origin: http://localhost:3000' );
+//         header( 'Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE' );
+//         header( 'Access-Control-Allow-Credentials: true' );
 
-        return $value;
-    } );
-}
-add_action( 'rest_api_init', 'add_custom_headers', 15 );
+//         return $value;
+//     } );
+// }
+// add_action( 'rest_api_init', 'add_custom_headers', 15 );
+
+
+
+add_action('rest_api_init', function () {
+	register_rest_route( 'custom', 'teams', array(
+			'methods' => 'GET',
+			'callback' => function(WP_REST_Request $request) {
+					global $wpdb;
+					$results = $wpdb->get_results( "SELECT * FROM wp_teams", OBJECT ); 
+					return $results;
+			}
+	));
+});
+
+
+add_action('rest_api_init', function () {
+	register_rest_route( 'custom', 'teams', array(
+			'methods' => 'POST',
+			'callback' => function(WP_REST_Request $request) {
+				global $wpdb;
+				$team = array(team_name => $request['team_name'],team_city => $request['team_city'], team_state => $request['team_state'], team_stadium => $request['team_stadium'], team_pic => $request['team_pic'],update_time => current_time( 'mysql' ));
+				if (is_wp_error($team)) {
+						return $team;
+				}
+				$wpdb->insert( 'wp_teams', $team);
+				$newest = $wpdb->get_results( "SELECT * FROM wp_teams ORDER BY update_time DESC LIMIT 1", OBJECT ); 
+				return $newest;
+			}
+	));
+});
+
+add_action('rest_api_init', function () {
+	register_rest_route( 'custom', 'teams/(?P<id>\d+)', array(
+			'methods' => 'POST',
+			'callback' => function(WP_REST_Request $request) {
+				global $wpdb;
+				$id = $request['id'];
+				$team = array(team_name => $request['team_name'],team_city => $request['team_city'], team_state => $request['team_state'], team_stadium => $request['team_stadium'], team_pic => $request['team_pic'],update_time => current_time( 'mysql' ));
+				if (is_wp_error($team)) {
+						return $team;
+				}
+				$wpdb->update( 'wp_teams', $team, array( 'team_id' => $id ));
+				$newteam = $wpdb->get_results( "SELECT * FROM wp_teams WHERE team_id = $id", OBJECT ); 
+				return $newteam;
+			}
+	));
+});
+
+add_action('rest_api_init', function () {
+	register_rest_route( 'custom', 'players', array(
+			'methods' => 'GET',
+			'callback' => function(WP_REST_Request $request) {
+					global $wpdb;
+					$results = $wpdb->get_results( "SELECT * FROM wp_players", OBJECT ); 
+					return $results;
+			}
+	));
+});
+
+add_action('rest_api_init', function () {
+	register_rest_route( 'custom', 'players', array(
+			'methods' => 'POST',
+			'callback' => function(WP_REST_Request $request) {
+				global $wpdb;
+				$player = array(player_name => $request['player_name'],player_city => $request['player_city'], player_state => $request['player_state'], team_id => $request['team_id'],update_time => current_time( 'mysql' ));
+				if (is_wp_error($player)) {
+						return $player;
+				}
+				$wpdb->insert( 'wp_players', $player);
+				$newest = $wpdb->get_results( "SELECT * FROM wp_players ORDER BY update_time DESC LIMIT 1", OBJECT ); 
+				return $newest;
+			}
+	));
+});
+
+add_action('rest_api_init', function () {
+	register_rest_route( 'custom', 'players/(?P<id>\d+)', array(
+			'methods' => 'POST',
+			'callback' => function(WP_REST_Request $request) {
+				global $wpdb;
+				$id = $request['id'];
+				$player = array(player_name => $request['player_name'],player_city => $request['player_city'], player_state => $request['player_state'], team_id => $request['team_id'],update_time => current_time( 'mysql' ));
+				if (is_wp_error($player)) {
+						return $player;
+				}
+				$wpdb->update( 'wp_players', $player, array( 'player_id' => $id ));
+				$newplayer = $wpdb->get_results( "SELECT * FROM wp_players WHERE player_id = $id", OBJECT ); 
+				return $newplayer;
+			}
+	));
+});

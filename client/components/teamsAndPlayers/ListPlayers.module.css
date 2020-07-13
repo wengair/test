@@ -1,0 +1,9 @@
+.playerContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.playerContent{
+  flex-grow:1;
+}

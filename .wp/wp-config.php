@@ -67,6 +67,10 @@ define('JWT_AUTH_CORS_ENABLE', true);
  * a unique prefix. Only numbers, letters, and underscores please!
  */
 $table_prefix = 'wp_';
+function jal_install () {
+	global $wpdb;
+	$table_name = $wpdb->prefix . "liveshoutbox"; 
+}
 
 /**
  * For developers: WordPress debugging mode.

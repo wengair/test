@@ -14,10 +14,17 @@ function Nav() {
     userContext.loginDispatch({type:'logout'})
     localStorage.clear();
   }
+
   return (
     <div className={styles.nav}>
-          <Link href="/"><a>Home</a></Link>
-          <h1>MAC posts</h1>
+          <div>
+            <Link href="/"><a>Home</a></Link>
+            <span>      </span>
+            <Link href="/teams"><a>Teams</a></Link>
+            <span>      </span>
+            <Link href="/modify-all"><a>List all teams and players</a></Link>
+          </div>
+          <h1>MAC</h1>
             <div>
               <span>{userContext.loginState.name}   </span>
               { userContext.loginState.isLogin &&

@@ -1,0 +1,22 @@
+.form{
+  display:flexbox;
+  flex-direction:column;
+}
+
+.formOptions {
+  margin:2px;
+  width:100%;
+}
+.firstOption{
+  margin-top: 20px;
+}
+
+.formTextarea {
+  width:200px;
+}
+
+.formButton {
+  width: 100%;
+  margin-top:20px;
+  height:40px;
+}
